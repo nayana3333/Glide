@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# ML artifacts
+ml/artifacts/*
+!ml/artifacts/.gitkeep
+.ipynb_checkpoints/
+
+# Node / React
+node_modules/
+frontend/dist/
+frontend/build/
+
+# Env / secrets
+.env
+.env.local
+*.pem
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
