@@ -10,7 +10,7 @@ Output: earnings.csv
 Columns: worker_id, week_start, week_index, platform, archetype, hours_worked,
          trips_completed, gross_earnings, fuel_cost, net_earnings, is_shock_week
 
-Scale: 200 workers x 104 weeks = 20,800 records
+Scale: 200 workers x 156 weeks (3 years) = 31,200 records
 """
 
 from datetime import date, timedelta
@@ -21,8 +21,8 @@ import pandas as pd
 RNG = np.random.default_rng(42)
 
 N_WORKERS = 200
-N_WEEKS = 104
-START_DATE = date(2024, 1, 1)
+N_WEEKS = 156
+START_DATE = date(2022, 1, 3)  # 3 years back, still a Monday
 
 # Day-of-week earning multiplier: Mon..Sun (weekend uplift, Mon/Tue dip)
 DAY_OF_WEEK_MULT = np.array([0.85, 0.85, 0.95, 1.00, 1.05, 1.25, 1.20])

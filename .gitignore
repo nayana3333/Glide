@@ -5,9 +5,11 @@ __pycache__/
 venv/
 *.egg-info/
 
-# ML artifacts
-ml/artifacts/*
-!ml/artifacts/.gitkeep
+# ML artifacts (keep small evaluation outputs like comparison tables/charts;
+# ignore large serialized model binaries)
+ml/artifacts/*.pkl
+ml/artifacts/*.joblib
+ml/artifacts/*.bin
 .ipynb_checkpoints/
 
 # Node / React
