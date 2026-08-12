@@ -6,7 +6,7 @@ from app.models.earnings import Earnings
 from app.models.user import User
 from app.schemas.forecast import ExplainResponse, ForecastResponse
 from app.services import explain_service, forecast_service
-from app.services.auth_service import get_current_user
+from app.services.auth_service import get_current_user, require_self
 
 router = APIRouter(prefix="/api/forecast", tags=["forecast"])
 
@@ -26,6 +26,7 @@ def get_forecast(
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
+    require_self(worker_id, user)
     rows = _earnings_for(db, worker_id)
     try:
         result = forecast_service.forecast_worker(rows)
@@ -40,6 +41,7 @@ def get_explanation(
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
+    require_self(worker_id, user)
     rows = _earnings_for(db, worker_id)
     target_user = db.query(User).filter(User.id == worker_id).first()
     if target_user is None:

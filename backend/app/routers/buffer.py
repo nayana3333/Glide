@@ -5,7 +5,7 @@ from app.database import get_db
 from app.models.user import User
 from app.schemas.buffer import BufferAmount, BufferStateResponse, BufferTransactionResponse
 from app.services import buffer_service
-from app.services.auth_service import get_current_user
+from app.services.auth_service import get_current_user, require_self
 
 router = APIRouter(prefix="/api/buffer", tags=["buffer"])
 
@@ -16,6 +16,7 @@ def get_buffer(
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
+    require_self(worker_id, user)
     balance, transactions = buffer_service.get_state(db, worker_id)
     return BufferStateResponse(balance=balance, transactions=transactions)
 

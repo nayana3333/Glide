@@ -7,7 +7,7 @@ from app.models.earnings import Earnings
 from app.models.user import User
 from app.schemas.dashboard import DashboardResponse
 from app.services import buffer_service, forecast_service
-from app.services.auth_service import get_current_user
+from app.services.auth_service import get_current_user, require_self
 
 router = APIRouter(prefix="/api/dashboard", tags=["dashboard"])
 
@@ -18,6 +18,7 @@ def get_dashboard(
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
+    require_self(worker_id, user)
     rows = (
         db.query(Earnings)
         .filter(Earnings.user_id == worker_id)

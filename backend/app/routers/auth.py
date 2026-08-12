@@ -6,8 +6,8 @@ from app.config import DATA_PATH
 from app.database import get_db
 from app.models.earnings import Earnings
 from app.models.user import User
-from app.schemas.auth import LoginRequest, RegisterRequest, TokenResponse
-from app.services.auth_service import create_access_token, hash_password, verify_password
+from app.schemas.auth import LoginRequest, RegisterRequest, TokenResponse, UserResponse
+from app.services.auth_service import create_access_token, get_current_user, hash_password, verify_password
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -69,3 +69,8 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
     if not user or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid phone or password")
     return TokenResponse(access_token=create_access_token(user.id))
+
+
+@router.get("/me", response_model=UserResponse)
+def me(user: User = Depends(get_current_user)):
+    return user

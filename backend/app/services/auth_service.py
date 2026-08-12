@@ -46,3 +46,12 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if user is None:
         raise credentials_error
     return user
+
+
+def require_self(worker_id: int, user: User) -> None:
+    """Routes take worker_id as a path param but a token only proves who the
+    caller is, not that they may read that worker's data — without this
+    check, any logged-in user could read anyone else's earnings/forecast/
+    buffer by changing the ID in the URL."""
+    if worker_id != user.id:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Not authorized to access this worker's data")

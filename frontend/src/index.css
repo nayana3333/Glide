@@ -1,0 +1,376 @@
+:root {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --border: #e3e6ee;
+  --text: #1a1d29;
+  --muted: #6b7280;
+  --accent: #1f9d55;
+  --accent-dark: #167a41;
+  --green: #1f9d55;
+  --amber: #d9822b;
+  --red: #c0392b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161f;
+    --surface: #1c1f2b;
+    --border: #2c303f;
+    --text: #eceef3;
+    --muted: #9aa0af;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.page h1 {
+  margin: 0 0 4px;
+  font-size: 1.6rem;
+}
+
+.page-subtitle {
+  color: var(--muted);
+  margin: 0 0 20px;
+  font-size: 0.9rem;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.navbar-link {
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.navbar-link.active {
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.card-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-value.large {
+  font-size: 2.2rem;
+}
+
+.chart-card {
+  padding-bottom: 8px;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.badge-green {
+  background: color-mix(in srgb, var(--green) 18%, transparent);
+  color: var(--green);
+}
+
+.badge-amber {
+  background: color-mix(in srgb, var(--amber) 18%, transparent);
+  color: var(--amber);
+}
+
+.badge-red {
+  background: color-mix(in srgb, var(--red) 18%, transparent);
+  color: var(--red);
+}
+
+/* Alert banner */
+.alert-banner {
+  background: color-mix(in srgb, var(--amber) 12%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--amber) 40%, var(--border));
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.table th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* Forms */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.field input,
+.field select {
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.field-hint {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px 16px;
+}
+
+.form-error {
+  color: var(--red);
+  font-size: 0.85rem;
+  margin: 8px 0;
+}
+
+/* Buttons */
+.btn {
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: var(--accent-dark);
+}
+
+.btn-ghost {
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Auth page */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-title {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+.auth-subtitle {
+  color: var(--muted);
+  margin: 4px 0 20px;
+  font-size: 0.9rem;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.auth-tab.active {
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.auth-card .btn-primary {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Buffer actions */
+.buffer-actions {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.buffer-actions input {
+  flex: 1;
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* SHAP bars */
+.shap-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shap-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 90px;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+.shap-label {
+  color: var(--muted);
+}
+
+.shap-track {
+  background: var(--bg);
+  border-radius: 4px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.shap-fill {
+  height: 100%;
+}
+
+.shap-fill.positive {
+  background: var(--green);
+}
+
+.shap-fill.negative {
+  background: var(--red);
+}
+
+.shap-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
