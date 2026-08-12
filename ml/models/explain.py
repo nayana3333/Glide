@@ -52,14 +52,24 @@ LABELS = {
 }
 
 
-def build_features(raw: pd.DataFrame) -> pd.DataFrame:
+def build_features(raw: pd.DataFrame, archetype_enc: LabelEncoder = None, platform_enc: LabelEncoder = None):
+    """
+    Returns (features_df, archetype_encoder, platform_encoder). Pass in
+    already-fitted encoders (e.g. from training) to encode new data
+    consistently; omit them to fit fresh ones on `raw`.
+    """
     df = raw.copy()
     df["week_start"] = pd.to_datetime(df["week_start"])
     df["month"] = df["week_start"].dt.month
     df["is_monsoon"] = df["month"].isin([6, 7, 8, 9]).astype(int)
     df["is_festival"] = df["month"].isin([10, 11, 12, 1]).astype(int)
-    df["archetype_enc"] = LabelEncoder().fit_transform(df["archetype"])
-    df["platform_enc"] = LabelEncoder().fit_transform(df["platform"])
+
+    if archetype_enc is None:
+        archetype_enc = LabelEncoder().fit(df["archetype"])
+    if platform_enc is None:
+        platform_enc = LabelEncoder().fit(df["platform"])
+    df["archetype_enc"] = archetype_enc.transform(df["archetype"])
+    df["platform_enc"] = platform_enc.transform(df["platform"])
 
     rows = []
     for wid, w in df.groupby("worker_id"):
@@ -82,18 +92,30 @@ def build_features(raw: pd.DataFrame) -> pd.DataFrame:
                 target=earnings[i],
                 is_test=(n - i) <= TEST_WEEKS,
             ))
-    return pd.DataFrame(rows)
+    return pd.DataFrame(rows), archetype_enc, platform_enc
 
 
-def train_and_explain():
-    raw = pd.read_csv(DATA_PATH)
-    features = build_features(raw)
-
+def train_model(raw: pd.DataFrame = None):
+    """
+    Fits the pooled Random Forest + SHAP explainer once. Returns
+    (model, explainer, features_df, archetype_enc, platform_enc) so callers
+    (the standalone script, or the backend's explain_service at startup)
+    share one training path instead of duplicating it.
+    """
+    if raw is None:
+        raw = pd.read_csv(DATA_PATH)
+    features, archetype_enc, platform_enc = build_features(raw)
     train = features[~features.is_test]
-    test = features[features.is_test].reset_index(drop=True)
 
     model = RandomForestRegressor(n_estimators=300, max_depth=10, random_state=42, n_jobs=-1)
     model.fit(train[FEATURE_COLS], train["target"])
+    explainer = shap.TreeExplainer(model)
+    return model, explainer, features, archetype_enc, platform_enc
+
+
+def train_and_explain():
+    model, explainer, features, _, _ = train_model()
+    test = features[features.is_test].reset_index(drop=True)
 
     pred = model.predict(test[FEATURE_COLS])
     actual = test["target"].values
@@ -103,7 +125,6 @@ def train_and_explain():
     print(f"Random Forest (1-step-ahead, pooled across all workers, {len(test)} test rows):")
     print(f"  MAE={mae:.2f}  RMSE={rmse:.2f}  sMAPE={smape:.2f}%")
 
-    explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(test[FEATURE_COLS])
 
     test["pred"] = pred

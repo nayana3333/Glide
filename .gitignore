@@ -22,6 +22,10 @@ frontend/build/
 .env.local
 *.pem
 
+# Local dev database
+backend/*.db
+backend/*.db-journal
+
 # OS
 .DS_Store
 Thumbs.db
