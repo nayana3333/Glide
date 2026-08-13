@@ -17,7 +17,6 @@ feature-level explanation for individual dip alerts, since Prophet/ARIMA
 don't expose a SHAP-friendly internal structure.
 """
 
-import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
