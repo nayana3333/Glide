@@ -1,21 +1,23 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import NavBar from "./components/NavBar.jsx";
-import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
-import Auth from "./pages/Auth.jsx";
-import Buffer from "./pages/Buffer.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import Forecast from "./pages/Forecast.jsx";
-import IncomeLog from "./pages/IncomeLog.jsx";
-import Insights from "./pages/Insights.jsx";
+import { Toaster } from "@/components/ui/sonner";
+import NavBar from "@/components/NavBar";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
+import Auth from "@/pages/Auth";
+import Buffer from "@/pages/Buffer";
+import Dashboard from "@/pages/Dashboard";
+import Forecast from "@/pages/Forecast";
+import IncomeLog from "@/pages/IncomeLog";
+import Insights from "@/pages/Insights";
+import type { ReactNode } from "react";
 
-function ProtectedLayout({ children }) {
+function ProtectedLayout({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
-  if (loading) return <div className="page">Loading...</div>;
+  if (loading) return <div className="p-6 text-muted-foreground">Loading...</div>;
   if (!user) return <Navigate to="/login" replace />;
   return (
     <>
       <NavBar />
-      {children}
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6">{children}</main>
     </>
   );
 }
@@ -27,7 +29,15 @@ function AppRoutes() {
     <Routes>
       <Route
         path="/login"
-        element={loading ? <div className="page">Loading...</div> : user ? <Navigate to="/dashboard" replace /> : <Auth />}
+        element={
+          loading ? (
+            <div className="p-6 text-muted-foreground">Loading...</div>
+          ) : user ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Auth />
+          )
+        }
       />
       <Route
         path="/dashboard"
@@ -78,6 +88,7 @@ export default function App() {
   return (
     <AuthProvider>
       <AppRoutes />
+      <Toaster position="top-right" richColors />
     </AuthProvider>
   );
 }

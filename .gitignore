@@ -16,6 +16,7 @@ ml/artifacts/*.bin
 node_modules/
 frontend/dist/
 frontend/build/
+*.tsbuildinfo
 
 # Env / secrets
 .env

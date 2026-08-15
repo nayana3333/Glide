@@ -21,9 +21,9 @@ Gig workers (Ola, Uber, Swiggy, Zomato, Urban Company) earn irregularly — stro
 ## Architecture
 
 ```
-React Frontend  →  FastAPI Backend  →  ML Service Layer (Prophet/ARIMA, Dip Detector, Buffer Engine, SHAP)
-                          │
-                     PostgreSQL
+React (TypeScript) Frontend  →  FastAPI Backend  →  ML Service Layer (Prophet/ARIMA, Dip Detector, Buffer Engine, SHAP)
+                                        │
+                                   PostgreSQL
 ```
 
 ## Repo structure
@@ -32,7 +32,7 @@ React Frontend  →  FastAPI Backend  →  ML Service Layer (Prophet/ARIMA, Dip 
 glide/
 ├── backend/       FastAPI app (auth, earnings, forecast, buffer, alerts)
 ├── ml/            data generator, forecasting models, evaluation, notebooks
-├── frontend/      React dashboard
+├── frontend/      React + TypeScript dashboard (Tailwind, shadcn/ui)
 └── docs/          literature review, architecture notes, paper draft
 ```
 
@@ -46,7 +46,7 @@ All 7 modules built and verified end-to-end:
 4. **Buffer engine** — reactive save/release rules. Full simulation across all 200 workers: **34.5% reduction** in weeks where income fell below the essential-expense floor.
 5. **SHAP explainability** — pooled Random Forest on seasonal + lag features, explained per-prediction.
 6. **FastAPI backend** — JWT auth, SQLite by default (swap to Postgres via `DATABASE_URL`), routes wired directly to the ML modules above.
-7. **React frontend** — dashboard, forecast (with confidence bands + SHAP panel), buffer, income log, insights.
+7. **React frontend** — TypeScript, Tailwind CSS + shadcn/ui, react-hook-form + zod validation, toast notifications and skeleton loading states, responsive mobile nav, dark/light theme toggle. Screens: dashboard, forecast (confidence bands + SHAP panel), buffer, income log, insights.
 
 ## Running it locally
 
@@ -73,4 +73,4 @@ Register with an optional `demo_worker_id` (1–200) to seed a new account with 
 
 ## Stack
 
-Python · scikit-learn · Prophet · SHAP · FastAPI · SQLAlchemy · React + Recharts · SQLite/PostgreSQL
+Python · scikit-learn · Prophet · SHAP · FastAPI · SQLAlchemy · SQLite/PostgreSQL · React 19 · TypeScript · Tailwind CSS · shadcn/ui · Recharts
