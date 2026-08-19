@@ -45,24 +45,13 @@ found and fixed along the way. See [Honest findings](#honest-findings-not-just-t
 
 ## Demo
 
-<!-- Record a short screen capture (register -> dashboard -> forecast -> buffer) and
-     drop it here as demo.gif. See docs/screenshots/README.md for a 5-minute how-to. -->
-
-<div align="center">
-<img src="docs/screenshots/demo.gif" alt="Glide demo: registering, dashboard, forecast, and buffer in action" width="800">
-</div>
-
-| Login & Register | Dashboard |
-|---|---|
-| ![Login](docs/screenshots/login.png) | ![Dashboard](docs/screenshots/dashboard.png) |
-
-| Forecast + SHAP explanation | Buffer |
-|---|---|
-| ![Forecast](docs/screenshots/forecast.png) | ![Buffer](docs/screenshots/buffer.png) |
-
-| Insights | Mobile |
-|---|---|
-| ![Insights](docs/screenshots/insights.png) | ![Mobile nav](docs/screenshots/mobile-nav.png) |
+> 🖼️ **Screenshots/demo GIF not added yet.** The app is fully working (see
+> [Quick Start](#quick-start) to run it yourself), but this build environment can't
+> render browser frames to capture real screenshots, and placeholder images that don't
+> exist yet would just show as broken links here — so instead of that, see
+> [`docs/screenshots/README.md`](docs/screenshots/README.md) for the exact shot list
+> and a 5-minute how-to. Once added, they'll go here: login/register, dashboard,
+> forecast + SHAP panel, buffer, insights, and mobile nav.
 
 ## Headline Results
 
