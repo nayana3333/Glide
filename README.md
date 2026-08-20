@@ -14,7 +14,7 @@ smooths it out with an explainable micro-savings buffer.
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 
-[Overview](#overview) • [Demo](#demo) • [Results](#headline-results) • [Architecture](#architecture) • [Quick Start](#quick-start) • [Paper](#academic-paper)
+[Overview](#overview) • [Demo](#demo) • [Results](#headline-results) • [Architecture](#architecture) • [Quick Start](#quick-start) • [Deployment](#deployment) • [Paper](#academic-paper)
 
 </div>
 
@@ -266,9 +266,15 @@ glide/
 A full IEEE-format paper draft — literature review, methodology, and every result on
 this page — is in [`docs/paper/Glide_IEEE_Paper.docx`](docs/paper/Glide_IEEE_Paper.docx).
 
+## Deployment
+
+Config files for a free Render (backend + Postgres) + Vercel (frontend) deployment
+are already in this repo — see [`DEPLOYMENT.md`](DEPLOYMENT.md) for the step-by-step
+guide.
+
 ## Roadmap
 
-- [ ] Live deployment (Render/Vercel)
+- [ ] Live deployment — configs are ready ([`DEPLOYMENT.md`](DEPLOYMENT.md)), pending account setup
 - [ ] Proactive buffer engine — couple the forecast/dip signal into savings behavior ahead of a predicted dip, not just react to income that already arrived
 - [ ] Validation against real platform earnings data
 - [ ] Alternative credit scoring from income regularity + buffer discipline

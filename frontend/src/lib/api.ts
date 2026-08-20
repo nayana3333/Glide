@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:8000";
+// Set VITE_API_URL in production (e.g. Vercel env vars) to point at the
+// deployed backend; falls back to the local dev server otherwise.
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const TOKEN_KEY = "glide_token";
 
 export function getToken(): string | null {
