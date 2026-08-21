@@ -8,7 +8,6 @@ Forecasts a gig worker's income, detects a dip before it happens, and automatica
 smooths it out with an explainable micro-savings buffer.
 
 [![CI](https://github.com/nayana3333/Glide/actions/workflows/tests.yml/badge.svg)](https://github.com/nayana3333/Glide/actions/workflows/tests.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.13-3776AB?logo=python&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
@@ -284,10 +283,6 @@ guide.
 
 **Nayana S**
 📧 nayanas3333@gmail.com
-
-## License
-
-[MIT](LICENSE)
 
 ## References
 
